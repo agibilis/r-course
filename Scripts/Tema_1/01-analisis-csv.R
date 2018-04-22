@@ -15,3 +15,4 @@ head(who_from_internet,2)
 
 who_from_file <-read.csv("Data/Tema1/WHO.csv")
 head(who_from_file,2)
+
