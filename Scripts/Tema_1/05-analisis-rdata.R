@@ -34,3 +34,4 @@ save(list = c("primos","pow2"), file = "Data/Tema1/primos_and_pow2.Rdata")
 attach("Data/Tema1/primos_and_pow2.Rdata")
 
 read.fwf()
+data()
