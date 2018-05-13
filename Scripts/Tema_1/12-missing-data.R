@@ -36,3 +36,80 @@ summary(housing.data)
 drops<- c("rad","ptratio")
 housing.data.3<- housing.data[,!(names(housing.data) %in% drops)]
 summary(housing.data.3)
+
+#la siguiente libreria es MUY UTIL
+install.packages("Hmisc")
+library(Hmisc)
+# quiero reemplazar los NA por otros valores.  La libreria impute me va a permitir hacer este reemplazo.
+housing.data<- read.csv("Data/Tema1/housing-with-missing-value.csv", header = TRUE, stringsAsFactors = FALSE)
+summary(housing.data)
+housing.data.copy1 <- housing.data
+
+housing.data.copy1$ptratio <- impute(housing.data.copy1$ptratio, mean)
+housing.data.copy1$rad <- impute(housing.data.copy1$rad, mean)
+summary(housing.data.copy1)
+
+housing.data.copy2 <- housing.data
+housing.data.copy2$ptratio <- impute(housing.data.copy2$ptratio, median)
+housing.data.copy2$rad <- impute(housing.data.copy2$rad, median)
+summary(housing.data.copy2)
+
+housing.data.copy3 <- housing.data
+housing.data.copy3$ptratio <- impute(housing.data.copy3$ptratio, 18)
+housing.data.copy3$rad <- impute(housing.data.copy3$rad, 7)
+summary(housing.data.copy3)
+
+# Vemo con los anteriores datos 
+
+#Si tenemos muchas observaciones  eliminar las observaciones con na no introduce mucho problema.  Habria que ver cuatos NA existen
+#Si la variable tiene muchos NA esa variable probablemente no sera muy importante para el negocio por lo que se puede eliminar directamente
+
+# si el dataset no es muy grande tendriamos que ir hacia el reemplazo de los NA por un valor. 
+# Estos rellenados de datos puede no dar problemas
+
+# siempre antes debemos conocer el patron para ver una idea de como son los datos.  Existe una libreria que nos puede ayudar
+install.packages("mice")
+library(mice)
+# con la funcion md.pattern nos da una idea de como esta la variable 
+md.pattern(housing.data)
+# vemos que 431 registros tienen todos los datos. 35 no tienen valor de rad y 35 no tienen valor en ptratio y 5 no tienen valor
+# en rad y ptratio. En total faltan 80 observaciones. 
+
+# otra libreria grafica  para ver los datos en VIM
+install.packages("VIM")
+library(VIM)
+
+aggr(housing.data,
+     col= c('green','red'),
+     numbers = TRUE,
+     sortVars = TRUE)
+
+# si es casi imposible de leer parametro cex.axis =1.0 normal, bajarlo
+
+aggr(housing.data,
+     col= c('green','red'),
+     numbers = TRUE,
+     sortVars = TRUE,
+     cex.axis = 0.75)
+
+# gap hueco entre los dos dibujos estandard = 4
+
+aggr(housing.data,
+     col= c('green','red'),
+     numbers = TRUE,
+     sortVars = TRUE,
+     cex.axis = 0.75,
+     gap = 1)
+
+# para dar la etiqueta 
+
+aggr(housing.data,
+     col= c('green','red'),
+     numbers = TRUE,
+     sortVars = TRUE,
+     cex.axis = 0.75,
+     gap = 1,
+     ylab=c("Histogramas de NA´s","Patrón"))
+
+
+# cuanto mejores graficos y que sea auto explicable mejor
