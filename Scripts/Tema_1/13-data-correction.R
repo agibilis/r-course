@@ -5,6 +5,7 @@ library(tidyr)
 # gather
 # spread
 # separate
+# unite
 
 crime.data<- read.csv("Data/Tema1/USArrests.csv",
                       stringsAsFactors = FALSE)
