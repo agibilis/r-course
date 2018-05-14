@@ -1,6 +1,11 @@
 install.packages("tidyr")
 library(tidyr)
 
+# vamos a usar las siguientes funciones 
+# gather
+# spread
+# separate
+
 crime.data<- read.csv("Data/Tema1/USArrests.csv",
                       stringsAsFactors = FALSE)
 rownames(crime.data)
