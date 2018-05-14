@@ -44,4 +44,44 @@ boxplot(ozone.data$pressure_height,
 mtext (boxplot(ozone.data$pressure_height,
                main="Pressure Heigth",
                boxwex=0.5)$out)
-        
+
+# primer enfoque reemplazar los valores de outlier por la media o la mediana. 
+# 
+impute_outliers <- function(x, removeNA=TRUE){
+  quantiles <- quantile(x,c(0.05,0.95),na.rm = removeNA)
+  x[x<quantiles[1]] <- mean(x,na.rm = removeNA)
+  x[x>quantiles[2]] <- median(x,na.rm=removeNA)
+  x
+}
+
+imputed_data <- impute_outliers(ozone.data$pressure_height)
+
+par(mfrow = c(1,2))
+
+boxplot(ozone.data$pressure_height, main="Presión con outliers")
+boxplot(imputed_data,main="Presión sin outliers")
+
+#podriamos eliminar todo lo que este por encima o por debajo de los bigotes, 
+# es decir capar todo lo que este por encima o debajo de 1,5 veces el rango intercuartilico
+# lo sustituye por el valor inferior o superior
+
+replace_outliers <-function(x,removeNA = TRUE){
+  qrts <- quantile(x,probs=c(0.25,0.75), na.rm= removeNA) # cuartile 1
+  caps <- quantile(x,probs =c(0.05, 0.95), na.rm= removeNA) # cuartil 3
+  iqr <- qrts[2]-qrts[1] # rango intercuartilico
+  h <- 1.5 * iqr
+  x[x<qrts[1]-h] <- caps[1]
+  x[x>qrts[2]+h] <- caps[2]
+  x
+}
+
+capped_pressure_height<- replace_outliers(ozone.data$pressure_height,removeNA = TRUE)
+
+par(mfrow=c(1,2))
+boxplot(ozone.data$pressure_height, main="Presión con outliers")
+boxplot(capped_pressure_height, main="Presión sin outliers")
+
+# transformar tambien puede ayudar a reducir los outliers en los algoritmos de analisis predictivo  se suele enmascarar los outliers por estas trasnformaciones.
+
+
+
