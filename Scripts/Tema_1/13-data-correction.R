@@ -1,13 +1,9 @@
 install.packages("tidyr")
 library(tidyr)
-# vamos a usar las siguientes funciones 
-# gather
-# spread
-# separate
-# unit
 
 crime.data<- read.csv("Data/Tema1/USArrests.csv",
                       stringsAsFactors = FALSE)
+rownames(crime.data)
 
 View(crime.data)
 # añadimos una columna adicional con el estado de cada fila
@@ -51,7 +47,6 @@ crime.data.6<- separate(crime.data.5,
                         col="Murder_Assault",
                         into = c("Murder","Assault"),
                         sep="-")
-
 
 
 
