@@ -25,7 +25,7 @@ library(moments) #asimetría, curtosis
 
 x = data$mpg
 
-### Medidas de Centralización
+### Medidas de Centralización (Localización)
 # Media aritmetica
 mean(x) #sum(x)/length(x)
 # Mediana
@@ -35,7 +35,7 @@ mfv(x) # e la moda del paquete modeest
 #Percentiles
 quantile(x)
 
-#### Medidas de Dispersión 
+#### Medidas de Dispersión (medidas de escala)
 # varianza (muestral trabajamos con datos dividimos por n-1)
 #S^2
 var(x)
@@ -47,17 +47,36 @@ cv(x) #(sd(x)/mean(x))*100
 
 #### Momento de orden r 
 
-El coeficiente de asimetria de Fisher se basa en los elementos de orden 3 (se basan en los momentos respecto a la media)
-
-El coeficiente de asimetia de curtois se basa en los elementos de orden 4
-
-Cuanto mas positivo mas desplazada hacia la izquierda. 
-
-En el caso de courtosis si es cero es de tipo mesocurtica si es negativa seria platicurtica
+#El coeficiente de asimetria de Fisher 
+#se basa en los elementos de orden 3 (se basan en los momentos respecto a la media)
+#
+#El coeficiente de asimetia de curtois se basa en los elementos de orden 4
+#
+# Segun el valor del coeficiente de fisher 
+# Si es cero decimos que es simetrica la parte derecha es igual a la izquierda.
+# si es menor que 1 asimetria negativa la media por debajo de la distribcion. 
+# cuanto mas negativo mas desplazado hacia la derecha
+# si es mayor que 1 asimetria positiva la media por encima de la distribucion
+# cuanto mas positivo mas desplazada hacia la izquierda. Si 
+#
+#En el caso de courtosis si es cero es de tipo mesocurtica si es negativa seria 
+#platicurtica (muchas colas) y si es positiva leptocurtica (pocas colas)
 
 #utililzaremos las mediadas en base a documentos.
+
+
 #Media de asimetria
 skewness(x)
-kurtosis(x)
+# sale ligeramente positiva
 
+moments::kurtosis(x)
+# es positiva por tanto leptocurtica
+
+# vemos como se distribuye 
+par(mfrow=c(1,1))
 hist(x)
+
+# Tambien para ver la distribucion nos sirve ver la posibion de la media respecto a la mediana
+
+#######################
+# Extraer un subconjunto
