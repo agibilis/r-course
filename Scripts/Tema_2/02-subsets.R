@@ -23,8 +23,8 @@ data[data$mpg>30 & data$cylinders==6,c("car_name","mpg")]
 # en las filas ponemos las condiciones
 # en formato corto
 data[data$mpg>30 & data$cyl==6,c("car_name","mpg")]
-# mediante subset
-subset(data,mpg>30 &  cylinders==6,select = c("car_name","mpg"))
+# mediante subset cuando queremos aplicar de forma repetida
+subset(data,mpg>30 &  cylinders==6,select = c("car_name","mpg"))  # con select indico las columnas
 
 # operadores logicos
 # & : AND
@@ -35,14 +35,20 @@ subset(data,mpg>30 &  cylinders==6,select = c("car_name","mpg"))
 # el fallo mas tipico 
 data[data$mpg>30]  #error falta la coma despues de la condicion en filas.
 
-# si queremos excluir columnas 
-data[1:5,c(-1,-9)]
+
+#Excluir columnas (funciona tambien para subset)
+subset(data,mpg>30 &  cylinders==6,select = -c(1,2,3))  # con select indico las columnas
+
+
+
+# si queremos excluir columnas ponemos valores negativos 
+data[1:5,c(-1,-9)] # todas las columnas menos la 1 y la 9
 
 data[1:5,-c(1,9)]
 
 # no funcionara con los nombres
 data[1:5,-c("car_name")]  # errrr
-#Pero de esta forma si
+#Pero de esta forma, los nombres de c, son  si
 data[1:5, !names(data) %in% c("No","car_name")]
 
 data[data$mpg %in% c(15,20), c("car_name","mpg")]
