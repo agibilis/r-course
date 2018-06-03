@@ -81,7 +81,7 @@ bwplot(cnt ~ weathersit, data = data,
 
 bwplot(cnt ~ weathersit, data = data,
        layout = c(1,1),
-       xlab="Prónostoico del tiempo",
+       xlab="Pronóstico del tiempo",
        ylab="Frecuencias",
        panel = function(x,y,...){
          panel.bwplot(x,y,...)
